@@ -10,6 +10,9 @@ public class GameControler : MonoBehaviour
     public RawImage background;
     public RawImage Platform;
 
+    public enum GameState {Idle, Playing};
+    public GameState gameState = GameState.Idle;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -19,8 +22,21 @@ public class GameControler : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float finalSpeed = parallaxSpeed * Time.deltaTime;
-        background.uvRect = new Rect(background.uvRect.x + finalSpeed, 0f,1f,1f); 
-        Platform.uvRect = new Rect(Platform.uvRect.x + finalSpeed, 0f,1f,1f); 
+        //EMPIEZA EL JUEGO
+        if (gameState == GameState.Idle && (Input.GetKeyDown("up") || Input.GetMouseButtonDown(0))){
+            gameState = GameState.Playing;
+
+        }
+        //Juego en marcha
+        else if (gameState == GameState.Playing){
+            Parallax();
     }
+  }
+
+  void Parallax(){
+         float finalSpeed = parallaxSpeed * Time.deltaTime;
+         background.uvRect = new Rect(background.uvRect.x + finalSpeed, 0f,1f,1f);
+         Platform.uvRect = new Rect(Platform.uvRect.x + finalSpeed * 4,0f,1f,1f);
+
+    }     
 }

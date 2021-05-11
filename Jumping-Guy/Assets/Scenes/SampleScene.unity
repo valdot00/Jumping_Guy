@@ -310,9 +310,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3525aa04942b0664f9d0179c8bd2bc11, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  parallaxSpeed: 0
+  parallaxSpeed: 0.074
   background: {fileID: 878716941}
   Platform: {fileID: 124000956}
+  gameState: 0
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
