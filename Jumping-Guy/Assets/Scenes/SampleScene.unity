@@ -314,6 +314,7 @@ MonoBehaviour:
   parallaxSpeed: 0.074
   background: {fileID: 878716941}
   Platform: {fileID: 124000956}
+  uiIdle: {fileID: 1864364625}
   gameState: 0
 --- !u!1 &519420028
 GameObject:
@@ -465,7 +466,7 @@ MonoBehaviour:
     m_MaxSize: 40
     m_Alignment: 4
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
@@ -486,7 +487,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610390891}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 3f5685dfbebc2ac45b886ac1770d28c2, type: 2}
   m_CullingMode: 0

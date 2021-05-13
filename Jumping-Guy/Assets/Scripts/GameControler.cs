@@ -9,6 +9,7 @@ public class GameControler : MonoBehaviour
     public float parallaxSpeed = 0.02f;
     public RawImage background;
     public RawImage Platform;
+    public GameObject uiIdle; //titulo del juego informacion de inicio
 
     public enum GameState {Idle, Playing};
     public GameState gameState = GameState.Idle;
@@ -25,7 +26,7 @@ public class GameControler : MonoBehaviour
         //EMPIEZA EL JUEGO
         if (gameState == GameState.Idle && (Input.GetKeyDown("up") || Input.GetMouseButtonDown(0))){
             gameState = GameState.Playing;
-
+            uiIdle.SetActive(false);
         }
         //Juego en marcha
         else if (gameState == GameState.Playing){
