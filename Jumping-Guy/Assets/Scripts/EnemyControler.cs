@@ -13,6 +13,7 @@ public class EnemyControler : MonoBehaviour
     {
         rb2d = GetComponent<Rigidbody2D>();
         rb2d.velocity = Vector2.left * velocity;
+       // rb2d.velocity = Vector2.left * 2;
     }
 
     // Update is called once per frame
