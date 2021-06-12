@@ -2,8 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public enum GameState {Idle, Playing, Ended};
+public enum GameState {Idle,Playing,Ended,Ready};
 
 public class GameControler : MonoBehaviour
 {
@@ -26,10 +27,12 @@ public class GameControler : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
+    void Update(){
+
+        bool userAction = Input.GetKeyDown("up")||Input.GetMouseButtonDown(0); 
+        
         //EMPIEZA EL JUEGO
-        if (gameState == GameState.Idle && (Input.GetKeyDown("up") || Input.GetMouseButtonDown(0))){
+        if (gameState == GameState.Idle && userAction){
             gameState = GameState.Playing;
             uiIdle.SetActive(false);
             player.SendMessage("UpdateState","PlayerRun");
@@ -39,8 +42,11 @@ public class GameControler : MonoBehaviour
         else if (gameState == GameState.Playing){
             Parallax();
         }
-        else if (gameState == GameState.Ended){
-           //fin del juego
+        //juego preparado para reiniciar
+        else if (gameState == GameState.Ready){
+           if(userAction){
+               RestartGame();
+           }
         }
   }
 
@@ -49,5 +55,9 @@ public class GameControler : MonoBehaviour
          background.uvRect = new Rect(background.uvRect.x + finalSpeed, 0f,1f,1f);
          Platform.uvRect = new Rect(Platform.uvRect.x + finalSpeed * 4,0f,1f,1f);
 
-    }     
+    } 
+
+    public void RestartGame(){
+        SceneManager.LoadScene("SampleScene");//colocar el nombre pprincipal de tu esena
+    }    
 }
