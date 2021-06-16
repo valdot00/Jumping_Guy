@@ -20,10 +20,12 @@ public class GameControler : MonoBehaviour
     public GameObject player;
     public GameObject enemyGenerator;
 
+    private AudioSource musicPlayer; 
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        musicPlayer = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -37,6 +39,7 @@ public class GameControler : MonoBehaviour
             uiIdle.SetActive(false);
             player.SendMessage("UpdateState","PlayerRun");
             enemyGenerator.SendMessage("StartGenerator");
+            musicPlayer.Play();
         }
         //Juego en marcha
         else if (gameState == GameState.Playing){

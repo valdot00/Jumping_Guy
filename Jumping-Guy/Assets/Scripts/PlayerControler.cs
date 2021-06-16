@@ -6,20 +6,33 @@ public class PlayerControler : MonoBehaviour
 {
     public GameObject game;
     public GameObject enemyGenerator;
+    public AudioClip jumpClip;
+    public AudioClip dieClip;
 
     private Animator animator;
+    private AudioSource audioPlayer;
+    private float startY;
 
     // Start is called before the first frame update
     void Start()
     {
         animator = GetComponent<Animator>();
+        audioPlayer = GetComponent<AudioSource>();
+        startY = transform.position.y;
     }
 
     // Update is called once per frame
     void Update(){
+
+        bool isGrounded = transform.position.y == startY;
         bool gamePlaying = game.GetComponent<GameControler>().gameState == GameState.Playing;
-        if(gamePlaying && (Input.GetKeyDown("up") || Input.GetMouseButtonDown(0))){
+        bool userAction = Input.GetKeyDown("up") || Input.GetMouseButtonDown(0);
+
+        if(isGrounded && gamePlaying && userAction){
             UpdateState("PlayerJumping");
+            //sonido de salto
+            audioPlayer.clip = jumpClip;
+            audioPlayer.Play();
         }
         
     }
@@ -35,6 +48,10 @@ public class PlayerControler : MonoBehaviour
             UpdateState("PlayerDie");
             game.GetComponent<GameControler>().gameState = GameState.Ended;
             enemyGenerator.SendMessage("CancelGenerator",true);
+            //musica y sonidos
+            game.GetComponent<AudioSource>().Stop();
+            audioPlayer.clip = dieClip;
+            audioPlayer.Play();
         }
     }  
     void GameReady(){
