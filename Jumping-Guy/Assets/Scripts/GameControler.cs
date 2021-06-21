@@ -20,6 +20,9 @@ public class GameControler : MonoBehaviour
     public GameObject player;
     public GameObject enemyGenerator;
 
+    public float scaleTime = 6f;
+    public float scaleInc = .25f;
+
     private AudioSource musicPlayer; 
 
     // Start is called before the first frame update
@@ -40,6 +43,7 @@ public class GameControler : MonoBehaviour
             player.SendMessage("UpdateState","PlayerRun");
             enemyGenerator.SendMessage("StartGenerator");
             musicPlayer.Play();
+            InvokeRepeating("GameTimeScale",scaleTime,scaleTime);
         }
         //Juego en marcha
         else if (gameState == GameState.Playing){
@@ -61,6 +65,19 @@ public class GameControler : MonoBehaviour
     } 
 
     public void RestartGame(){
-        SceneManager.LoadScene("SampleScene");//colocar el nombre pprincipal de tu esena
+        ResetTimeScale();
+        SceneManager.LoadScene("SampleScene");//colocar el nombre principal de tu esena
+    }
+
+    void GameTimeScale(){
+        Time.timeScale += scaleInc;
+        Debug.Log("Ritmo incrementado" + Time.timeScale.ToString());
+    }
+
+    public void ResetTimeScale(float newTimeScale = 1f){
+        CancelInvoke("GameTimeScale");
+        //Time.timeScale = 1f;
+        Time.timeScale = newTimeScale;
+        Debug.Log("Ritmo reestablecido: " + Time.timeScale.ToString());
     }    
 }
