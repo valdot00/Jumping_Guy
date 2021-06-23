@@ -8,6 +8,7 @@ public class PlayerControler : MonoBehaviour
     public GameObject enemyGenerator;
     public AudioClip jumpClip;
     public AudioClip dieClip;
+    public ParticleSystem dust;
 
     private Animator animator;
     private AudioSource audioPlayer;
@@ -54,10 +55,21 @@ public class PlayerControler : MonoBehaviour
             game.GetComponent<AudioSource>().Stop();
             audioPlayer.clip = dieClip;
             audioPlayer.Play();
+
+            DustStop();
         }
     }  
     void GameReady(){
         game.GetComponent<GameControler>().gameState = GameState.Ready;
     }  
+
+    void DustPlay(){
+        dust.Play();
+    }
+
+    void DustStop(){
+        dust.Stop();
+    } 
+
 }
 
