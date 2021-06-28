@@ -12,7 +12,11 @@ public class GameControler : MonoBehaviour
     public float parallaxSpeed = 0.02f;
     public RawImage background;
     public RawImage Platform;
+
     public GameObject uiIdle; //titulo del juego informacion de inicio
+    public GameObject uiScore; //muestra los puntos del jugador
+
+    public Text pointsText;
 
     //public enum GameState {Idle, Playing, Ended};
     public GameState gameState = GameState.Idle;
@@ -23,7 +27,8 @@ public class GameControler : MonoBehaviour
     public float scaleTime = 6f;
     public float scaleInc = .25f;
 
-    private AudioSource musicPlayer; 
+    private AudioSource musicPlayer;
+    private int points = 0; 
 
     // Start is called before the first frame update
     void Start()
@@ -40,6 +45,7 @@ public class GameControler : MonoBehaviour
         if (gameState == GameState.Idle && userAction){
             gameState = GameState.Playing;
             uiIdle.SetActive(false);
+            uiScore.SetActive(true);
             player.SendMessage("UpdateState","PlayerRun");
             player.SendMessage("DustPlay");
             enemyGenerator.SendMessage("StartGenerator");
@@ -80,5 +86,10 @@ public class GameControler : MonoBehaviour
         //Time.timeScale = 1f;
         Time.timeScale = newTimeScale;
         Debug.Log("Ritmo reestablecido: " + Time.timeScale.ToString());
+    }
+
+    public void IncreasePoints(){
+        //points++;
+        pointsText.text = (++points).ToString();
     }    
 }
